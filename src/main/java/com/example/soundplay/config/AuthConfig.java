@@ -1,6 +1,6 @@
 package com.example.soundplay.config;
 
-import com.example.security.repository.UserRepository;
+import com.example.soundplay.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthConfig implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public AuthConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AuthConfig(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByEmail(username)
+        return usuarioRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

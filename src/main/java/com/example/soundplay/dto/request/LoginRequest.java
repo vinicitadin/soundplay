@@ -6,5 +6,5 @@ public record LoginRequest(@NotEmpty(message = "Email é obrigatório")
                            String email,
 
                            @NotEmpty(message = "Senha é obrigatória")
-                           String password) {
+                           String senha) {
 }

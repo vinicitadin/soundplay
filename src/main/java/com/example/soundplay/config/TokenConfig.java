@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.security.entity.User;
+import com.example.soundplay.entity.Usuario;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -15,11 +15,11 @@ public class TokenConfig {
 
     private String secret = "secret";
 
-    public String generateToken(User user) {
+    public String generateToken(Usuario usuario) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         return JWT.create()
-                .withClaim("userId", user.getId())
-                .withSubject(user.getEmail())
+                .withClaim("userId", usuario.getId())
+                .withSubject(usuario.getEmail())
                 .withExpiresAt(Instant.now().plusSeconds(86400))
                 .withIssuedAt(Instant.now())
                 .sign(algorithm);
