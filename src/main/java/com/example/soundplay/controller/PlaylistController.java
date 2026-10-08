@@ -5,12 +5,13 @@ import com.example.soundplay.service.PlaylistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.soundplay.doc.PlaylistControllerDoc;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/playlists")
-public class PlaylistController {
+public class PlaylistController implements PlaylistControllerDoc{
 
     private final PlaylistService playlistService;
 
