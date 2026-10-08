@@ -5,12 +5,13 @@ import com.example.soundplay.repository.MusicaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.soundplay.doc.MusicaControllerDoc;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/musicas")
-public class MusicaController {
+public class MusicaController implements MusicaControllerDoc {
 
     private final MusicaRepository musicaRepository;
 
