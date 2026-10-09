@@ -1,5 +1,6 @@
 package com.example.soundplay.controller;
 
+import com.example.soundplay.doc.ArtistaControllerDoc;
 import com.example.soundplay.entity.Artista;
 import com.example.soundplay.service.ArtistaService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/artistas")
-public class ArtistaController {
+public class ArtistaController implements ArtistaControllerDoc {
 
     private final ArtistaService artistaService;
 

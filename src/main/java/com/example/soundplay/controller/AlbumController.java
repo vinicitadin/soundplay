@@ -1,5 +1,6 @@
 package com.example.soundplay.controller;
 
+import com.example.soundplay.doc.AlbumControllerDoc;
 import com.example.soundplay.entity.Album;
 import com.example.soundplay.service.AlbumService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/albuns")
-public class AlbumController {
+public class AlbumController implements AlbumControllerDoc {
 
     private final AlbumService albumService;
 
