@@ -23,6 +23,11 @@ public class AlbumController {
         return ResponseEntity.ok(albumService.listarTodos());
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Album>> buscarPorTitulo(@RequestParam String titulo) {
+        return ResponseEntity.ok(albumService.buscarPorTitulo(titulo));
+    }
+
     @PostMapping
     public ResponseEntity<Album> salvar(@RequestBody Album album) {
         Album albumSalvo = albumService.salvar(album);

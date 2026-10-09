@@ -20,6 +20,10 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
+    public List<Album> buscarPorTitulo(String titulo) {
+        return albumRepository.findByTituloContainingIgnoreCase(titulo);
+    }
+
     public Album salvar(Album album) {
         return albumRepository.save(album);
     }
