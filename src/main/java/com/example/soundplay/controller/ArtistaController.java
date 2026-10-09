@@ -23,6 +23,11 @@ public class ArtistaController {
         return ResponseEntity.ok(artistaService.listarTodos());
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Artista>> buscarPorNome(@RequestParam String nome) {
+        return ResponseEntity.ok(artistaService.buscarPorNome(nome));
+    }
+
     @PostMapping
     public ResponseEntity<Artista> salvar(@RequestBody Artista artista) {
         Artista artistaSalvo = artistaService.salvar(artista);

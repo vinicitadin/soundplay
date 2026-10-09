@@ -20,6 +20,10 @@ public class ArtistaService {
         return artistaRepository.findAll();
     }
 
+    public List<Artista> buscarPorNome(String nome) {
+        return artistaRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
     public Artista salvar(Artista artista) {
         return artistaRepository.save(artista);
     }
