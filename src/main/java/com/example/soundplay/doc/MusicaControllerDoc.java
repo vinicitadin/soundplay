@@ -1,10 +1,11 @@
- package com.example.soundplay.doc;
+package com.example.soundplay.doc;
 
 import com.example.soundplay.entity.Musica;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Lista de músicas retornada com sucesso")
     })
-    List<Musica> listar();
+    ResponseEntity<List<Musica>> listar();
 
     @Operation(
             summary = "Buscar música por ID",
@@ -31,7 +32,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Música não encontrada")
     })
-    Musica buscarPorId(Long id);
+    ResponseEntity<Musica> buscarPorId(Long id);
 
     @Operation(
             summary = "Pesquisar músicas por título",
@@ -41,7 +42,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Pesquisa realizada com sucesso")
     })
-    List<Musica> buscarPorTitulo(String titulo);
+    ResponseEntity<List<Musica>> buscarPorTitulo(String titulo);
 
     @Operation(
             summary = "Cadastrar música",
@@ -53,7 +54,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "400",
                     description = "Dados inválidos")
     })
-    Musica cadastrar(Musica musica);
+    ResponseEntity<Musica> cadastrar(Musica musica);
 
     @Operation(
             summary = "Atualizar música",
@@ -65,7 +66,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Música não encontrada")
     })
-    Musica atualizar(Long id, Musica musica);
+    ResponseEntity<Musica> atualizar(Long id, Musica musica);
 
     @Operation(
             summary = "Excluir música",
@@ -77,5 +78,5 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Música não encontrada")
     })
-    void excluir(Long id);
+    ResponseEntity<Void> excluir(Long id);
 }
