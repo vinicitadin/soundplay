@@ -16,7 +16,7 @@ public class Album {
     private String titulo;
 
     @Column
-    private int ano_lancamento;
+    private Integer ano_lancamento;
 
     @Column(length = 500)
     private String capa;
@@ -44,11 +44,11 @@ public class Album {
         this.titulo = titulo;
     }
 
-    public int getAno_lancamento() {
+    public Integer getAno_lancamento() {
         return ano_lancamento;
     }
 
-    public void setAno_lancamento(int ano_lancamento) {
+    public void setAno_lancamento(Integer ano_lancamento) {
         this.ano_lancamento = ano_lancamento;
     }
 
@@ -58,5 +58,17 @@ public class Album {
 
     public void setCapa(String capa) {
         this.capa = capa;
+    }
+
+    public Artista getArtista() {
+        return artista;
+    }
+
+    public void setArtista(Artista artista) {
+        this.artista = artista;
+    }
+
+    public List<Musica> getMusicas() {
+        return musicas;
     }
 }

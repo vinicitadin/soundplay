@@ -1,11 +1,13 @@
 package com.example.soundplay.controller;
 
-import com.example.soundplay.entity.Musica;
-import com.example.soundplay.repository.MusicaRepository;
+import com.example.soundplay.doc.MusicaControllerDoc;
+import com.example.soundplay.dto.request.MusicaRequest;
+import com.example.soundplay.dto.response.MusicaResponse;
+import com.example.soundplay.service.MusicaService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.soundplay.doc.MusicaControllerDoc;
 
 import java.util.List;
 
@@ -13,71 +15,51 @@ import java.util.List;
 @RequestMapping("/musicas")
 public class MusicaController implements MusicaControllerDoc {
 
-    private final MusicaRepository musicaRepository;
+    private final MusicaService musicaService;
 
-    public MusicaController(MusicaRepository musicaRepository) {
-        this.musicaRepository = musicaRepository;
+    public MusicaController(MusicaService musicaService) {
+        this.musicaService = musicaService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Musica>> listar() {
-        return ResponseEntity.ok(musicaRepository.findAll());
+    public ResponseEntity<List<MusicaResponse>> listar() {
+        return ResponseEntity.ok(musicaService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Musica> buscarPorId(@PathVariable Long id) {
-        return musicaRepository.findById(id)
+    public ResponseEntity<MusicaResponse> buscarPorId(@PathVariable Long id) {
+        return musicaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<List<Musica>> buscarPorTitulo(
-            @RequestParam String titulo) {
-
-        return ResponseEntity.ok(
-                musicaRepository.findByTituloContainingIgnoreCase(titulo)
-        );
+    public ResponseEntity<List<MusicaResponse>> buscarPorTitulo(@RequestParam String titulo) {
+        return ResponseEntity.ok(musicaService.buscarPorTitulo(titulo));
     }
 
     @PostMapping
-    public ResponseEntity<Musica> cadastrar(@RequestBody Musica musica) {
-
-        Musica musicaSalva = musicaRepository.save(musica);
-
+    public ResponseEntity<MusicaResponse> cadastrar(@Valid @RequestBody MusicaRequest musica) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(musicaSalva);
+                .body(musicaService.cadastrar(musica));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Musica> atualizar(
+    public ResponseEntity<MusicaResponse> atualizar(
             @PathVariable Long id,
-            @RequestBody Musica musica) {
+            @Valid @RequestBody MusicaRequest musica) {
 
-        return musicaRepository.findById(id)
-                .map(musicaExistente -> {
-
-                    musicaExistente.setTitulo(musica.getTitulo());
-                    musicaExistente.setDuracao(musica.getDuracao());
-                    musicaExistente.setUrl(musica.getUrl());
-
-                    Musica musicaAtualizada =
-                            musicaRepository.save(musicaExistente);
-
-                    return ResponseEntity.ok(musicaAtualizada);
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return musicaService.atualizar(id, musica)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-
-        if (!musicaRepository.existsById(id)) {
+        if (!musicaService.excluir(id)) {
             return ResponseEntity.notFound().build();
         }
-
-        musicaRepository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
