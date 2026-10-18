@@ -1,6 +1,7 @@
 package com.example.soundplay.doc;
 
-import com.example.soundplay.entity.Album;
+import com.example.soundplay.dto.request.AlbumRequest;
+import com.example.soundplay.dto.response.AlbumResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,7 +21,7 @@ public interface AlbumControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Lista de álbuns retornada com sucesso")
     })
-    ResponseEntity<List<Album>> listar();
+    ResponseEntity<List<AlbumResponse>> listar();
 
     @Operation(
             summary = "Pesquisar álbuns por título",
@@ -30,7 +31,7 @@ public interface AlbumControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Pesquisa realizada com sucesso")
     })
-    ResponseEntity<List<Album>> buscarPorTitulo(String titulo);
+    ResponseEntity<List<AlbumResponse>> buscarPorTitulo(String titulo);
 
     @Operation(
             summary = "Cadastrar álbum",
@@ -42,7 +43,7 @@ public interface AlbumControllerDoc {
             @ApiResponse(responseCode = "400",
                     description = "Dados inválidos")
     })
-    ResponseEntity<Album> salvar(Album album);
+    ResponseEntity<AlbumResponse> salvar(AlbumRequest album);
 
     @Operation(
             summary = "Atualizar álbum",
@@ -54,7 +55,7 @@ public interface AlbumControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Álbum não encontrado")
     })
-    ResponseEntity<Album> atualizar(Long id, Album albumAtualizado);
+    ResponseEntity<AlbumResponse> atualizar(Long id, AlbumRequest albumAtualizado);
 
     @Operation(
             summary = "Excluir álbum",
@@ -67,4 +68,4 @@ public interface AlbumControllerDoc {
                     description = "Álbum não encontrado")
     })
     ResponseEntity<Void> deletar(Long id);
-}
+}

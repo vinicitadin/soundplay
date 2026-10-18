@@ -1,9 +1,9 @@
 package com.example.soundplay.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -11,9 +11,22 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 200)
     private String titulo;
-    private int ano_lancamento;
+
+    @Column
+    private Integer ano_lancamento;
+
+    @Column(length = 500)
     private String capa;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "artista_id", nullable = false)
+    private Artista artista;
+
+    @OneToMany(mappedBy = "album")
+    private List<Musica> musicas = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -31,11 +44,11 @@ public class Album {
         this.titulo = titulo;
     }
 
-    public int getAno_lancamento() {
+    public Integer getAno_lancamento() {
         return ano_lancamento;
     }
 
-    public void setAno_lancamento(int ano_lancamento) {
+    public void setAno_lancamento(Integer ano_lancamento) {
         this.ano_lancamento = ano_lancamento;
     }
 
@@ -45,5 +58,17 @@ public class Album {
 
     public void setCapa(String capa) {
         this.capa = capa;
+    }
+
+    public Artista getArtista() {
+        return artista;
+    }
+
+    public void setArtista(Artista artista) {
+        this.artista = artista;
+    }
+
+    public List<Musica> getMusicas() {
+        return musicas;
     }
 }

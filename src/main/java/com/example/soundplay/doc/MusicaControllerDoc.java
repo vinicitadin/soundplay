@@ -1,6 +1,7 @@
 package com.example.soundplay.doc;
 
-import com.example.soundplay.entity.Musica;
+import com.example.soundplay.dto.request.MusicaRequest;
+import com.example.soundplay.dto.response.MusicaResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,7 +21,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Lista de músicas retornada com sucesso")
     })
-    ResponseEntity<List<Musica>> listar();
+    ResponseEntity<List<MusicaResponse>> listar();
 
     @Operation(
             summary = "Buscar música por ID",
@@ -32,7 +33,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Música não encontrada")
     })
-    ResponseEntity<Musica> buscarPorId(Long id);
+    ResponseEntity<MusicaResponse> buscarPorId(Long id);
 
     @Operation(
             summary = "Pesquisar músicas por título",
@@ -42,7 +43,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "200",
                     description = "Pesquisa realizada com sucesso")
     })
-    ResponseEntity<List<Musica>> buscarPorTitulo(String titulo);
+    ResponseEntity<List<MusicaResponse>> buscarPorTitulo(String titulo);
 
     @Operation(
             summary = "Cadastrar música",
@@ -54,7 +55,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "400",
                     description = "Dados inválidos")
     })
-    ResponseEntity<Musica> cadastrar(Musica musica);
+    ResponseEntity<MusicaResponse> cadastrar(MusicaRequest musica);
 
     @Operation(
             summary = "Atualizar música",
@@ -66,7 +67,7 @@ public interface MusicaControllerDoc {
             @ApiResponse(responseCode = "404",
                     description = "Música não encontrada")
     })
-    ResponseEntity<Musica> atualizar(Long id, Musica musica);
+    ResponseEntity<MusicaResponse> atualizar(Long id, MusicaRequest musica);
 
     @Operation(
             summary = "Excluir música",

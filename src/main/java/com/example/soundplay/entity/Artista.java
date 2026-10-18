@@ -1,9 +1,9 @@
 package com.example.soundplay.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Artista {
@@ -11,9 +11,21 @@ public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 150)
     private String nome;
+
+    @Column(length = 50)
     private String genero;
+
+    @Column
     private String biografia;
+
+    @OneToMany(mappedBy = "artista")
+    private List<Album> albuns = new ArrayList<>();
+
+    @OneToMany(mappedBy = "artista")
+    private List<Musica> musicas = new ArrayList<>();
 
     public Long getId() {
         return id;
