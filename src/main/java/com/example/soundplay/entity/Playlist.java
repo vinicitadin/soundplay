@@ -2,6 +2,9 @@ package com.example.soundplay.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "playlist")
 public class Playlist {
@@ -18,6 +21,28 @@ public class Playlist {
 
     @Column (nullable = false)
     private Boolean publica;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_musica",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "musica_id")
+    )
+    private Set<Musica> musicas = new HashSet<>();
+
+    public void adicionarMusica(Musica musica) {
+        musicas.add(musica);
+        musica.getPlaylists().add(this);
+    }
+
+    public void removerMusica(Musica musica) {
+        musicas.remove(musica);
+        musica.getPlaylists().remove(this);
+    }
 
     public Playlist () {
 
@@ -62,4 +87,15 @@ public class Playlist {
         this.publica = publica;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Set<Musica> getMusicas() {
+        return musicas;
+    }
 }
